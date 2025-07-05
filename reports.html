@@ -1,105 +1,266 @@
-
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تقارير - البدري إكسبريس</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>البدري إكسبريس - التقارير</title>
   <style>
     body {
-      direction: rtl;
-      font-family: 'Cairo', Tahoma, sans-serif;
-      background: linear-gradient(to bottom, #e0f2f1, #ffffff);
+      font-family: 'Tahoma', sans-serif;
+      background: linear-gradient(to bottom, #e0f7fa, #fffde7);
       margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #00796b;
-      color: white;
       padding: 20px;
+      color: #333;
       text-align: center;
-      font-size: 30px;
-      font-weight: bold;
     }
+
     nav {
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #00838f;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    h1 {
+      color: #00838f;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    select, input, button {
+      width: 90%;
+      max-width: 400px;
+      padding: 12px;
+      margin: 10px auto;
+      display: block;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #ffca28;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffc107;
+    }
+
+    .toggle-password {
+      position: relative;
       display: flex;
       justify-content: center;
-      background-color: #004d40;
+      align-items: center;
     }
-    nav a {
+
+    .toggle-password input {
       flex: 1;
-      padding: 15px;
-      font-size: 18px;
-      color: white;
-      text-align: center;
-      text-decoration: none;
     }
-    nav a:hover {
-      background-color: #00695c;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-    }
-    .summary {
-      background-color: #f1f8e9;
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid #c5e1a5;
-      margin-top: 30px;
-    }
-    .summary div {
-      margin: 10px 0;
-      font-size: 18px;
-    }
-    .highlight {
-      color: #d84315;
-      font-weight: bold;
-    }
-    .action {
-      margin-top: 25px;
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(to right, #2196f3, #00bcd4);
-      border: none;
-      border-radius: 12px;
-      color: white;
-      font-size: 18px;
+
+    .toggle-password span {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
       cursor: pointer;
+      font-size: 18px;
+    }
+
+    table {
+      width: 95%;
+      max-width: 1000px;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    th {
+      background-color: #00838f;
+      color: white;
+    }
+
+    .section-title {
+      margin-top: 30px;
+      font-weight: bold;
+      color: #006064;
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
-  <header>البدري إكسبريس</header>
+
+  <!-- تنقل بين الصفحات -->
   <nav>
-    <a href="index.html">تسجيل</a>
-    <a href="reports.html">التقارير</a>
+    <a href="index.html">📦 تسجيل</a>
+    <a href="reports.html">📊 التقارير</a>
+    <a href="admin.html">⚙️ الإدارة</a>
   </nav>
-  <div class="container">
-    <h2 style="text-align:center; color:#00796b;">تقرير الشحنات</h2>
-    <div class="summary">
-      <div><strong>عدد الشحنات:</strong> <span id="totalOrders" class="highlight">--</span></div>
-      <div><strong>عدد المستلمة:</strong> <span id="deliveredCount" class="highlight">--</span></div>
-      <div><strong>عدد الرافضة:</strong> <span id="rejectedCount" class="highlight">--</span></div>
-      <div><strong>عدد الحالات الأخرى:</strong> <span id="otherCount" class="highlight">--</span></div>
-      <div><strong>إجمالي المبلغ المحصل:</strong> <span id="totalCollected" class="highlight">--</span> جنيه</div>
-      <div><strong>إجمالي العمولة:</strong> <span id="totalCommission" class="highlight">--</span> جنيه</div>
-    </div>
-    <button class="action" onclick="loadDetails()">عرض التفاصيل</button>
+
+  <h1>البدري إكسبريس</h1>
+
+  <!-- اختيار الشركة -->
+  <label>اختر الشركة</label>
+  <select id="company">
+    <option disabled selected>اختر الشركة</option>
+    <option>إنيرجي</option>
+    <option>الجوكر</option>
+    <option>الهواري</option>
+    <option>داما</option>
+    <option>الفهد</option>
+  </select>
+
+  <!-- اختيار المنطقة -->
+  <label>اختر المنطقة</label>
+  <select id="area">
+    <option disabled selected>اختر المنطقة</option>
+    <option>سفاجا</option>
+    <option>القصير</option>
+    <option>غارب</option>
+    <option>احياء</option>
+    <option>ابو</option>
+    <option>جبريل</option>
+    <option>كوثر</option>
+    <option>حفر</option>
+    <option>جونة</option>
+    <option>شيري</option>
+    <option>سقالة</option>
+    <option>مدارس</option>
+    <option>ذهب</option>
+    <option>كهف</option>
+    <option>دهار</option>
+    <option>رشاد</option>
+    <option>محمود</option>
+    <option>وليد</option>
+    <option>مكتب</option>
+    <option>سوماباي</option>
+    <option>سهل</option>
+    <option>مكادي</option>
+  </select>
+
+  <button onclick="rememberCompanyArea()">تذكرني</button>
+
+  <!-- رمز الدخول -->
+  <label>رمز الدخول</label>
+  <div class="toggle-password">
+    <input type="password" id="passcode" placeholder="رمز الدخول" />
+    <span onclick="togglePass()">👁</span>
   </div>
+  <button onclick="rememberPasscode()">تذكرني</button>
+
+  <button onclick="showReport()">إظهار التقرير</button>
+
+  <!-- ملخص التقرير -->
+  <div id="summarySection" style="display: none;">
+    <p class="section-title">ملخص التقرير:</p>
+    <table>
+      <tr>
+        <th>عدد الشحنات</th>
+        <th>المستلمة</th>
+        <th>الرافضة</th>
+        <th>المؤجلة</th>
+        <th>لا يرد</th>
+        <th>إجمالي المحصل</th>
+        <th>إجمالي العمولة</th>
+        <th>الصافي للإدارة</th>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>15</td>
+        <td>3</td>
+        <td>4</td>
+        <td>3</td>
+        <td>3000</td>
+        <td>250</td>
+        <td>2750</td>
+      </tr>
+    </table>
+
+    <button onclick="toggleDetails()">عرض التفاصيل</button>
+  </div>
+
+  <!-- تفاصيل التقرير -->
+  <div id="detailsSection" style="display: none;">
+    <p class="section-title">تفاصيل الشحنات:</p>
+    <table>
+      <tr>
+        <th>رقم الشحنة</th>
+        <th>اسم العميل</th>
+        <th>رقم الهاتف</th>
+        <th>المبلغ المطلوب</th>
+        <th>المبلغ المحصل</th>
+        <th>الموقف</th>
+      </tr>
+      <tr>
+        <td>123456</td>
+        <td>أحمد علي</td>
+        <td>01012345678</td>
+        <td>150</td>
+        <td>150</td>
+        <td>استلم</td>
+      </tr>
+      <tr>
+        <td>789012</td>
+        <td>محمد سمير</td>
+        <td>01111222333</td>
+        <td>200</td>
+        <td>0</td>
+        <td>مغلق</td>
+      </tr>
+    </table>
+  </div>
+
   <script>
-    function loadDetails() {
-      alert("سيتم عرض التفاصيل قريبًا...");
+    function togglePass() {
+      const input = document.getElementById("passcode");
+      input.type = input.type === "password" ? "text" : "password";
     }
+
+    function rememberCompanyArea() {
+      localStorage.setItem("report_company", document.getElementById("company").value);
+      localStorage.setItem("report_area", document.getElementById("area").value);
+      alert("تم حفظ الشركة والمنطقة!");
+    }
+
+    function rememberPasscode() {
+      localStorage.setItem("report_passcode", document.getElementById("passcode").value);
+      alert("تم حفظ رمز الدخول!");
+    }
+
     window.onload = function () {
-      document.getElementById("totalOrders").textContent = 15;
-      document.getElementById("deliveredCount").textContent = 9;
-      document.getElementById("rejectedCount").textContent = 3;
-      document.getElementById("otherCount").textContent = 3;
-      document.getElementById("totalCollected").textContent = 1200;
-      document.getElementById("totalCommission").textContent = 180;
+      if (localStorage.getItem("report_company")) {
+        document.getElementById("company").value = localStorage.getItem("report_company");
+      }
+      if (localStorage.getItem("report_area")) {
+        document.getElementById("area").value = localStorage.getItem("report_area");
+      }
+      if (localStorage.getItem("report_passcode")) {
+        document.getElementById("passcode").value = localStorage.getItem("report_passcode");
+      }
+    };
+
+    function showReport() {
+      // عرض البيانات التجريبية
+      document.getElementById("summarySection").style.display = "block";
+    }
+
+    function toggleDetails() {
+      const section = document.getElementById("detailsSection");
+      section.style.display = section.style.display === "none" ? "block" : "none";
     }
   </script>
+
 </body>
 </html>
