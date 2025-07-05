@@ -4,13 +4,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>البدري إكسبريس</title>
+  <title>البدري إكسبريس - تسجيل</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>البدري إكسبريس</h1>
+  <div class="nav">
+    <button onclick="location.href='report.html'">📊 تقارير المندوب</button>
+    <button onclick="location.href='admin.html'">⚙️ لوحة الإدارة</button>
+  </div>
   <div id="form-container">
-    <!-- سيتم ملء النموذج هنا -->
+    <form>
+      <label>اسم الشركة:</label>
+      <select><option>إنيرجي</option><option>الجوكر</option><option>الهواري</option><option>الفهد</option><option>داما</option></select>
+      <br />
+      <label>المنطقة:</label>
+      <select><option>كوثر</option><option>شيري</option><option>دهار</option></select>
+      <br />
+      <label>رمز الدخول:</label>
+      <input type="password" id="password" />
+      <button type="button" onclick="togglePassword()">👁️</button>
+      <br />
+      <label>رقم الشحنة:</label>
+      <input type="text" />
+      <br />
+      <label>موقف الشحنة:</label>
+      <select><option>استلم</option><option>مغلق</option><option>مكرر</option></select>
+      <br />
+      <label>المبلغ المحصل:</label>
+      <input type="number" />
+      <br /><br />
+      <button type="submit">تسجيل</button>
+    </form>
   </div>
   <script src="script.js"></script>
 </body>

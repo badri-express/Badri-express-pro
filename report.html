@@ -9,6 +9,10 @@
 </head>
 <body>
   <h1>تقرير المندوب</h1>
+  <div class="nav">
+    <button onclick="location.href='index.html'">📝 تسجيل الشحنات</button>
+    <button onclick="location.href='admin.html'">⚙️ لوحة الإدارة</button>
+  </div>
   <div id="report-summary">
     <p>✅ عدد الشحنات: <span id="total-orders">0</span></p>
     <p>💰 إجمالي المحصل: <span id="total-collected">0</span> جنيه</p>
@@ -20,17 +24,15 @@
     <h2>تفاصيل الحالات</h2>
     <table border="1" style="margin: auto; text-align: center;">
       <thead>
-        <tr>
-          <th>الحالة</th>
-          <th>عدد الشحنات</th>
-        </tr>
+        <tr><th>الحالة</th><th>عدد الشحنات</th></tr>
       </thead>
       <tbody id="status-table">
-        <!-- يتم ملؤه ديناميكيًا -->
+        <tr><td>استلم</td><td>0</td></tr>
+        <tr><td>مغلق</td><td>0</td></tr>
+        <tr><td>مكرر</td><td>0</td></tr>
       </tbody>
     </table>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
