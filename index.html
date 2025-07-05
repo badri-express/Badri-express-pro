@@ -124,14 +124,30 @@
     <div class="remember">
       <input type="checkbox" id="rememberAccess" />
       <label for="rememberAccess">تذكرني</label>
+    
     </div>
     <label for="company">الشركة:</label>
+    
     <select id="company">
       <option value="">اختر الشركة</option>
     </select>
+    
     <label for="orderNumber">رقم الشحنة:</label>
+    
     <input type="text" id="orderNumber" placeholder="اكتب رقم الشحنة" />
+    
     <button class="action" onclick="searchOrder()">بحث</button>
+
+    <label for="status">الموقف:</label>
+    <select id="status">
+      <option value="">اختر الموقف</option>
+    </select>
+
+    <label for="collected">المبلغ المحصل:</label>
+    <input type="number" id="collected" placeholder="ادخل المبلغ المحصل" />
+
+    <button class="action" onclick="submitStatus()">تسجيل الموقف</button>
+    
     <div class="client-info hidden" id="clientInfo">
       <div><strong>اسم العميل:</strong> <span id="clientName"></span></div>
       <div><strong>المبلغ المطلوب:</strong> <span id="amountDue"></span> جنيه</div>
@@ -153,6 +169,60 @@
       document.getElementById('call2').href = "tel:" + phone2;
       document.getElementById('clientInfo').classList.remove('hidden');
     }
-  </script>
+  
+    const companies = ["الجوكر", "داما", "الفهد", "الهواري", "إنيرجي"];
+    const regions = ["سفاجا", "القصير", "غارب", "احياء", "ابو", "جبريل", "كوثر", "حفر", "جونة", "شيري", "سقالة", "مدارس", "ذهب", "كهف", "دهار", "رشاد", "محمود", "وليد", "مكتب", "سوماباي", "سهل", "مكادي"];
+    const statuses = ["استلم", "لا يرد", "جزئي", "رفض ورفض", "رفض ودفع", "مغلق", "مسافر", "تأجيل", "بعد التنسيق لا يرد", "بعد التنسيق مغلق", "تهرب", "مكرر", "مش طالب حاجة", "رقم خاطئ", "خارج النطاق", "تغيير عنوان", "استلم بعلم الشركة", "عهدة", "عهدة مكتب"];
+
+    window.onload = function () {
+      // تعبئة القوائم تلقائياً
+      companies.forEach(c => {
+        let op = document.createElement("option");
+        op.value = c;
+        op.textContent = c;
+        document.getElementById("company").appendChild(op);
+      });
+
+      regions.forEach(r => {
+        let op = document.createElement("option");
+        op.value = r;
+        op.textContent = r;
+        document.getElementById("region").appendChild(op);
+      });
+
+      statuses.forEach(s => {
+        let op = document.createElement("option");
+        op.value = s;
+        op.textContent = s;
+        document.getElementById("status").appendChild(op);
+      });
+
+      // بيانات تجريبية
+      document.getElementById("clientName").textContent = "محمد أحمد";
+      document.getElementById("amountDue").textContent = "150";
+      document.getElementById("phone1").textContent = "01012345678";
+      document.getElementById("phone2").textContent = "01234567890";
+      document.getElementById("call1").href = "tel:01012345678";
+      document.getElementById("call2").href = "tel:01234567890";
+      document.getElementById("clientInfo").classList.remove("hidden");
+    }
+
+    function submitStatus() {
+      const region = document.getElementById("region").value;
+      const accessCode = document.getElementById("accessCode").value;
+      const company = document.getElementById("company").value;
+      const order = document.getElementById("orderNumber").value;
+      const status = document.getElementById("status").value;
+      const collected = document.getElementById("collected").value;
+
+      if (!region || !accessCode || !company || !order || !status) {
+        alert("من فضلك اكمل جميع البيانات");
+        return;
+      }
+
+      alert("تم تسجيل الموقف بنجاح ✅\n(تجريبي حتى الآن)");
+    }
+    </script>
+    
 </body>
 </html>
