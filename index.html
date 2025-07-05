@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>البدري إكسبريس - تسجيل الشحنات</title>
+  <style>
+    body {
+      direction: rtl;
+      font-family: 'Cairo', Tahoma, sans-serif;
+      background-color: #fff8dc;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 25px 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    h1 {
+      text-align: center;
+      color: #0074D9;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 6px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      transition: border-color 0.3s;
+    }
+    select:focus, input:focus {
+      border-color: #0074D9;
+      outline: none;
+      box-shadow: 0 0 6px rgba(0,116,217,0.4);
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(90deg, #0074D9, #005fa3);
+      border: none;
+      border-radius: 14px;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #005fa3, #003d66);
+    }
+    .client-info {
+      margin-top: 25px;
+      background: #eaf2ff;
+      padding: 15px 20px;
+      border-radius: 15px;
+      font-size: 16px;
+      color: #003366;
+      line-height: 1.5;
+    }
+    .phone-link {
+      color: #0074D9;
+      font-weight: bold;
+      margin-left: 10px;
+      text-decoration: none;
+      font-size: 20px;
+    }
+    .phone-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>البدري إكسبريس</h1>
+
+    <label for="region">المنطقة:</label>
+    <select id="region" required>
+      <option value="" disabled selected>اختر المنطقة</option>
+      <option>سفاجا</option>
+      <option>القصير</option>
+      <option>غارب</option>
+      <option>احياء</option>
+      <option>ابو</option>
+      <option>جبريل</option>
+      <option>كوثر</option>
+      <option>حفر</option>
+      <option>جونة</option>
+      <option>شيري</option>
+      <option>سقالة</option>
+      <option>مدارس</option>
+      <option>ذهب</option>
+      <option>كهف</option>
+      <option>دهار</option>
+      <option>رشاد</option>
+      <option>محمود</option>
+      <option>وليد</option>
+      <option>مكتب</option>
+      <option>سوماباي</option>
+      <option>سهل</option>
+      <option>مكادي</option>
+    </select>
+
+    <label for="accessCode">رمز الدخول:</label>
+    <input type="password" id="accessCode" placeholder="ادخل رمز الدخول" required />
+
+    <label for="company">الشركة:</label>
+    <select id="company" required>
+      <option value="" disabled selected>اختر الشركة</option>
+      <option>الجوكر</option>
+      <option>داما</option>
+      <option>الفهد</option>
+      <option>الهواري</option>
+      <option>إنيرجي</option>
+    </select>
+
+    <label for="orderNumber">رقم الشحنة:</label>
+    <input type="text" id="orderNumber" placeholder="اكتب رقم الشحنة" required />
+
+    <button id="searchBtn">بحث</button>
+
+    <div id="clientData" class="client-info" style="display:none;">
+      <div><strong>اسم العميل:</strong> <span id="clientName"></span></div>
+      <div>
+        <strong>رقم الهاتف 1:</strong> <span id="phone1"></span> <a id="call1" class="phone-link" href="#" title="اتصل بالرقم 1">📞</a>
+      </div>
+      <div id="phone2Container" style="display:none;">
+        <strong>رقم الهاتف 2:</strong> <span id="phone2"></span> <a id="call2" class="phone-link" href="#" title="اتصل بالرقم 2">📞</a>
+      </div>
+      <div><strong>المبلغ المطلوب:</strong> <span id="amountDue"></span> جنيه</div>
+    </div>
+
+  </div>
+
+  <script>
+    // مثال بيانات وهمية للعرض (لما نربط بالشيت هتتغير)
+    const dummyData = {
+      "12345": {
+        name: "أحمد محمد",
+        phones: ["01001234567", "01234567890"],
+        amount: 320
+      },
+      "67890": {
+        name: "منى علي",
+        phones: ["01119876543"],
+        amount: 150
+      }
+    };
+
+    const searchBtn = document.getElementById("searchBtn");
+    const clientDataDiv = document.getElementById("clientData");
+    const clientNameSpan = document.getElementById("clientName");
+    const phone1Span = document.getElementById("phone1");
+    const phone2Span = document.getElementById("phone2");
+    const phone2Container = document.getElementById("phone2Container");
+    const call1Link = document.getElementById("call1");
+    const call2Link = document.getElementById("call2");
+    const amountDueSpan = document.getElementById("amountDue");
+
+    searchBtn.addEventListener("click", () => {
+      const orderNum = document.getElementById("orderNumber").value.trim();
+      const region = document.getElementById("region").value;
+      const accessCode = document.getElementById("accessCode").value.trim();
+      const company = document.getElementById("company").value;
+
+      if (!orderNum || !region || !accessCode || !company) {
+        alert("يرجى تعبئة كل الحقول المطلوبة.");
+        return;
+      }
+
+      // هنا ستتم إضافة استدعاء لجلب بيانات الشحنة من Google Sheets (سأفعلها لاحقًا)
+      // حاليا نستعمل dummyData للعرض فقط
+
+      if (dummyData[orderNum]) {
+        const data = dummyData[orderNum];
+        clientNameSpan.textContent = data.name;
+        phone1Span.textContent = data.phones[0];
+        call1Link.href = `tel:${data.phones[0]}`;
+        if (data.phones.length > 1) {
+          phone2Span.textContent = data.phones[1];
+          call2Link.href = `tel:${data.phones[1]}`;
+          phone2Container.style.display = "block";
+        } else {
+          phone2Container.style.display = "none";
+        }
+        amountDueSpan.textContent = data.amount;
+        clientDataDiv.style.display = "block";
+      } else {
+        alert("رقم الشحنة غير موجود في قاعدة البيانات.");
+        clientDataDiv.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
