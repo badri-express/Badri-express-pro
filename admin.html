@@ -3,125 +3,15 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>لوحة الإدارة - البدري إكسبريس</title>
-  <style>
-    body {
-      direction: rtl;
-      font-family: 'Cairo', Tahoma, sans-serif;
-      background: linear-gradient(to bottom, #f1f8e9, #ffffff);
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #33691e;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 30px;
-      font-weight: bold;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #558b2f;
-    }
-    nav a {
-      flex: 1;
-      padding: 15px;
-      font-size: 18px;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-    }
-    nav a:hover {
-      background-color: #689f38;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-    }
-    .login-box {
-      background-color: #fff3e0;
-      padding: 20px;
-      border: 1px solid #ffcc80;
-      border-radius: 12px;
-      margin-top: 40px;
-      text-align: center;
-    }
-    input[type="password"] {
-      padding: 10px;
-      font-size: 16px;
-      width: 80%;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: #ff6f00;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .admin-panel {
-      display: none;
-      background-color: #e8f5e9;
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid #c8e6c9;
-      margin-top: 30px;
-    }
-    .summary div {
-      margin: 10px 0;
-      font-size: 18px;
-    }
-    .highlight {
-      color: #1b5e20;
-      font-weight: bold;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إدارة البدري إكسبريس</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>لوحة الإدارة - البدري إكسبريس</header>
-  <nav>
-    <a href="index.html">تسجيل</a>
-    <a href="reports.html">التقارير</a>
-    <a href="admin.html">الإدارة</a>
-  </nav>
-  <div class="container">
-    <div class="login-box" id="loginBox">
-      <h3>كلمة السر للدخول:</h3>
-      <input type="password" id="adminPass" placeholder="••••••••" />
-      <br />
-      <button onclick="checkPassword()">دخول</button>
-    </div>
-    <div class="admin-panel" id="adminPanel">
-      <h2 style="text-align:center; color:#33691e;">إحصائيات الشحنات</h2>
-      <div class="summary">
-        <div><strong>عدد الشحنات الكلي:</strong> <span class="highlight">36</span></div>
-        <div><strong>إجمالي المحصل:</strong> <span class="highlight">2150</span> جنيه</div>
-        <div><strong>إجمالي العمولة:</strong> <span class="highlight">310</span> جنيه</div>
-        <div><strong>أعلى منطقة تحصيلًا:</strong> <span class="highlight">كوثر</span></div>
-        <div><strong>أعلى شركة تسليمًا:</strong> <span class="highlight">الجوكر</span></div>
-      </div>
-    </div>
+  <h1>لوحة الإدارة</h1>
+  <div id="admin-panel">
+    <!-- سيتم ملء التقارير هنا -->
   </div>
-  <script>
-    function checkPassword() {
-      const input = document.getElementById("adminPass").value;
-      const correctPassword = "4444"; // كلمة السر المؤقتة
-      if (input === correctPassword) {
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("adminPanel").style.display = "block";
-      } else {
-        alert("كلمة السر غير صحيحة ❌");
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
