@@ -1,38 +1,1 @@
 
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تقرير المندوب</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <h1>تقرير المندوب</h1>
-  <div class="nav">
-    <button onclick="location.href='index.html'">📝 تسجيل الشحنات</button>
-    <button onclick="location.href='admin.html'">⚙️ لوحة الإدارة</button>
-  </div>
-  <div id="report-summary">
-    <p>✅ عدد الشحنات: <span id="total-orders">0</span></p>
-    <p>💰 إجمالي المحصل: <span id="total-collected">0</span> جنيه</p>
-    <p>💼 إجمالي العمولة: <span id="total-commission">0</span> جنيه</p>
-    <p>📦 المطلوب تسليمه للإدارة: <span id="to-deliver">0</span> جنيه</p>
-  </div>
-
-  <div id="status-breakdown">
-    <h2>تفاصيل الحالات</h2>
-    <table border="1" style="margin: auto; text-align: center;">
-      <thead>
-        <tr><th>الحالة</th><th>عدد الشحنات</th></tr>
-      </thead>
-      <tbody id="status-table">
-        <tr><td>استلم</td><td>0</td></tr>
-        <tr><td>مغلق</td><td>0</td></tr>
-        <tr><td>مكرر</td><td>0</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>
