@@ -1,42 +1,231 @@
-
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>البدري إكسبريس - تسجيل</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>البدري إكسبريس - تسجيل شحنة</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background: linear-gradient(to bottom, #e0f7fa, #fffde7);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #00838f;
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+    select, input, textarea, button {
+      width: 90%;
+      max-width: 400px;
+      padding: 12px;
+      margin: 10px auto;
+      display: block;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #ffca28;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #ffc107;
+    }
+    .toggle-password {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .toggle-password input {
+      flex: 1;
+    }
+    .toggle-password span {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .contact-buttons a {
+      margin: 5px;
+      display: inline-block;
+      color: white;
+      background: #4caf50;
+      padding: 8px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .section-title {
+      margin-top: 30px;
+      font-weight: bold;
+      color: #006064;
+    }
+  </style>
 </head>
 <body>
+
   <h1>البدري إكسبريس</h1>
-  <div class="nav">
-    <button onclick="location.href='report.html'">📊 تقارير المندوب</button>
-    <button onclick="location.href='admin.html'">⚙️ لوحة الإدارة</button>
+
+  <!-- اختيار الشركة -->
+  <label>اختر الشركة</label>
+  <select id="company">
+    <option disabled selected>اختر الشركة</option>
+    <option>إنيرجي</option>
+    <option>الجوكر</option>
+    <option>الهواري</option>
+    <option>داما</option>
+    <option>الفهد</option>
+  </select>
+
+  <!-- اختيار المنطقة -->
+  <label>اختر المنطقة</label>
+  <select id="area">
+    <option disabled selected>اختر المنطقة</option>
+    <option>سفاجا</option>
+    <option>القصير</option>
+    <option>غارب</option>
+    <option>احياء</option>
+    <option>ابو</option>
+    <option>جبريل</option>
+    <option>كوثر</option>
+    <option>حفر</option>
+    <option>جونة</option>
+    <option>شيري</option>
+    <option>سقالة</option>
+    <option>مدارس</option>
+    <option>ذهب</option>
+    <option>كهف</option>
+    <option>دهار</option>
+    <option>رشاد</option>
+    <option>محمود</option>
+    <option>وليد</option>
+    <option>مكتب</option>
+    <option>سوماباي</option>
+    <option>سهل</option>
+    <option>مكادي</option>
+  </select>
+
+  <button onclick="rememberCompanyArea()">تذكرني</button>
+
+  <!-- رمز الدخول -->
+  <label>رمز الدخول</label>
+  <div class="toggle-password">
+    <input type="password" id="passcode" placeholder="رمز الدخول" />
+    <span onclick="togglePass()">👁</span>
   </div>
-  <div id="form-container">
-    <form>
-      <label>اسم الشركة:</label>
-      <select><option>إنيرجي</option><option>الجوكر</option><option>الهواري</option><option>الفهد</option><option>داما</option></select>
-      <br />
-      <label>المنطقة:</label>
-      <select><option>كوثر</option><option>شيري</option><option>دهار</option></select>
-      <br />
-      <label>رمز الدخول:</label>
-      <input type="password" id="password" />
-      <button type="button" onclick="togglePassword()">👁️</button>
-      <br />
-      <label>رقم الشحنة:</label>
-      <input type="text" />
-      <br />
-      <label>موقف الشحنة:</label>
-      <select><option>استلم</option><option>مغلق</option><option>مكرر</option></select>
-      <br />
-      <label>المبلغ المحصل:</label>
-      <input type="number" />
-      <br /><br />
-      <button type="submit">تسجيل</button>
-    </form>
+  <button onclick="rememberPasscode()">تذكرني</button>
+
+  <!-- رقم الشحنة -->
+  <label>رقم الشحنة</label>
+  <input type="text" id="trackingNumber" placeholder="أدخل رقم الشحنة" />
+
+  <button onclick="searchShipment()">بحث</button>
+
+  <!-- بيانات الشحنة -->
+  <div id="shipmentData" style="display: none;">
+    <p class="section-title">بيانات الشحنة:</p>
+    <p><strong>اسم العميل:</strong> <span id="customerName">--</span></p>
+    <p><strong>رقم الهاتف:</strong> 
+      <span id="phone1">--</span> 
+      <a id="call1" href="#" class="contact-buttons">اتصل</a>
+    </p>
+    <p><strong>رقم إضافي:</strong> 
+      <span id="phone2">--</span> 
+      <a id="call2" href="#" class="contact-buttons">اتصل</a>
+    </p>
+    <p><strong>المبلغ المطلوب:</strong> <span id="amount">--</span> جنيه</p>
   </div>
-  <script src="script.js"></script>
+
+  <!-- موقف الشحنة -->
+  <label>موقف الشحنة</label>
+  <select id="status">
+    <option disabled selected>اختر الموقف</option>
+    <option>استلم</option>
+    <option>لا يرد</option>
+    <option>جزئي</option>
+    <option>رفض ورفض</option>
+    <option>رفض ودفع</option>
+    <option>مغلق</option>
+    <option>مسافر</option>
+    <option>تأجيل</option>
+    <option>بعد التنسيق لا يرد</option>
+    <option>بعد التنسيق مغلق</option>
+    <option>تهرب</option>
+    <option>مكرر</option>
+    <option>مش طالب حاجة</option>
+    <option>رقم خاطئ</option>
+    <option>خارج النطاق</option>
+    <option>تغيير عنوان</option>
+    <option>استلم بعلم الشركة</option>
+    <option>عهدة</option>
+    <option>عهدة مكتب</option>
+  </select>
+
+  <!-- المبلغ المحصل -->
+  <label>المبلغ المحصل</label>
+  <input type="number" id="collectedAmount" placeholder="اكتب المبلغ المحصل" />
+
+  <!-- ملاحظات -->
+  <label>ملاحظات</label>
+  <textarea id="notes" rows="3" placeholder="اكتب أي ملاحظات هنا"></textarea>
+
+  <!-- زر تسجيل -->
+  <button onclick="submitData()">تسجيل</button>
+
+  <script>
+    function togglePass() {
+      const input = document.getElementById("passcode");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    function rememberCompanyArea() {
+      localStorage.setItem("company", document.getElementById("company").value);
+      localStorage.setItem("area", document.getElementById("area").value);
+      alert("تم حفظ الشركة والمنطقة!");
+    }
+
+    function rememberPasscode() {
+      localStorage.setItem("passcode", document.getElementById("passcode").value);
+      alert("تم حفظ رمز الدخول!");
+    }
+
+    // تحميل البيانات المحفوظة
+    window.onload = function () {
+      if (localStorage.getItem("company")) {
+        document.getElementById("company").value = localStorage.getItem("company");
+      }
+      if (localStorage.getItem("area")) {
+        document.getElementById("area").value = localStorage.getItem("area");
+      }
+      if (localStorage.getItem("passcode")) {
+        document.getElementById("passcode").value = localStorage.getItem("passcode");
+      }
+    };
+
+    function searchShipment() {
+      // محاكاة بيانات
+      document.getElementById("customerName").textContent = "أحمد عبد الله";
+      document.getElementById("phone1").textContent = "01012345678";
+      document.getElementById("call1").href = "tel:01012345678";
+      document.getElementById("phone2").textContent = "01122334455";
+      document.getElementById("call2").href = "tel:01122334455";
+      document.getElementById("amount").textContent = "250";
+      document.getElementById("shipmentData").style.display = "block";
+    }
+
+    function submitData() {
+      alert("تم تسجيل البيانات بنجاح (هنا هنوصلها بجوجل شيت لاحقًا)");
+    }
+  </script>
+
 </body>
 </html>
